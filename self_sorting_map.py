@@ -351,3 +351,19 @@ if __name__ == "__main__":
 
     Image.fromarray(x_sorted.astype(np.uint8)).save("ssm_rgb.png")
     print("Saved -> ssm_rgb.png")
+
+    # Side-by-side, upscaled (nearest) for README — raw 32×32 is tiny when embedded
+    scale = 8
+    px = grid_size * scale
+    gap = 12
+    try:
+        resample = Image.Resampling.NEAREST
+    except AttributeError:
+        resample = Image.NEAREST  # type: ignore[attr-defined]
+    left = Image.fromarray(initial_arr.astype(np.uint8)).resize((px, px), resample)
+    right = Image.fromarray(x_sorted.astype(np.uint8)).resize((px, px), resample)
+    combined = Image.new("RGB", (px * 2 + gap, px), (26, 26, 28))
+    combined.paste(left, (0, 0))
+    combined.paste(right, (px + gap, 0))
+    combined.save("ssm_rgb_readme.png")
+    print("Saved -> ssm_rgb_readme.png")
