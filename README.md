@@ -1,12 +1,12 @@
 # Self-Sorting Map (SSM) in Python
 
-A highly faithful Python implementation of the Self-Sorting Map (SSM) algorithm, based on the paper [“Self-Sorting Map: An Efficient Algorithm for Presenting Multimedia Data in Structured Layouts”](https://home2.htw-berlin.de/~barthel/veranstaltungen/IR/uebungen/SelfSortingMap.pdf) by Grant Strong and Minglun Gong.
+A Python implementation of the core Self-Sorting Map (SSM) algorithm, based on the paper [“Self-Sorting Map: An Efficient Algorithm for Presenting Multimedia Data in Structured Layouts”](https://home2.htw-berlin.de/~barthel/veranstaltungen/IR/uebungen/SelfSortingMap.pdf) by Grant Strong and Minglun Gong.
 
-The SSM is an algorithm designed to organize and present high-dimensional or nominal multimedia data (such as images, colors, or text documents) into a structured, non-overlapping 2D grid. It guarantees that the most related items are placed close together, while unrelated items are pushed far apart. Unlike traditional dimension reduction techniques like MDS or SOM, SSM transforms the continuous optimization problem into a discrete labeling problem, ensuring an occlusion-free layout directly.
+This project focuses on the paper's core 2D square-grid SSM procedure: alternating shifted block groupings, neighborhood-based target computation, and exhaustive 4-item alignment within each grouped quadruple. It is intended as a clear and practical Python version of the main algorithm for fully filled power-of-two grids, rather than a complete reproduction of every variant and engineering optimization discussed in the paper.
 
 ## Features
 
-- **Mathematically Faithful Core:** Accurately implements the alternating shifted block groupings and offset neighborhood calculations described in the paper.
+- **Faithful Core Mechanics:** Implements the main 2D SSM loop with alternating shifted block groupings and neighborhood-based targets.
 - **Dual Data Modes:**
   - `real`: Computes block targets using the mean vectors of the neighborhoods.
   - `nominal`: Computes targets using the exact medoid (the item minimizing total dissimilarity within the neighborhood).
@@ -80,7 +80,7 @@ ssm = SelfSortingMap(
     grid_size=N,
     distance_fn=euclidean_distance,
     data_mode="real",  # use "nominal" for non-vector data like text/graphs
-    max_iters=4,       # Default based on the paper
+    max_iters=4,       # small per-stage iteration cap; tune per dataset
     seed=42,
 )
 
@@ -94,13 +94,15 @@ layout = ssm.get_layout()
 top_left_item = layout[0][0]
 ```
 
-## Implementation Details & Deviations from the Paper
+## Implementation Scope & Deviations
 
-This implementation captures the precise mechanics of the SSM algorithm, but features a few minor quality-of-life differences from the complete scope of the original publication:
+This implementation is best described as a Python version of the paper's core 2D SSM algorithm, with a few deliberate simplifications and omissions:
 
-- **Strict True Centroids for Nominal Data:** For nominal datasets, the paper suggests computing “approximate centroids” using parallel reduction to save time on large datasets. This implementation strictly evaluates the true centroid according to Equation 6. This makes the code mathematically exact, though potentially slower for very large nominal datasets.
-- **No Boundary Conditions:** The paper outlines a method to enforce boundary conditions (e.g., pinning a specific color to the top of the map) by using external items during target calculation. This script currently operates without boundary constraints.
-- **Strict Grid Filling:** The algorithm requires exactly \(N \times N\) items (where \(N\) is a power of two). It does not currently support filling empty cells with placeholders for datasets that do not perfectly fit the grid size.
+- **Square, fully filled maps only:** The code currently expects exactly \(N \times N\) items on a square grid where \(N\) is a power of two.
+- **No boundary conditions:** The paper describes using fixed external items to bias the organization near the border; that feature is not implemented here.
+- **No placeholder cells:** The paper discusses handling underfilled maps with placeholders; this implementation does not include that extension.
+- **Nominal mode favors exactness over speed:** For nominal datasets, the code uses the exact Equation 6 medoid/centroid search over the neighborhood rather than the paper's faster approximate reduction strategy, so it can be much slower on large datasets.
+- **CPU reference implementation:** The paper also presents GPU-oriented acceleration and performance engineering; this repository focuses on a readable Python implementation of the underlying algorithm instead.
 
 ## References
 

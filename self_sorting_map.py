@@ -32,9 +32,13 @@ def euclidean_distance(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def cosine_distance(a: np.ndarray, b: np.ndarray) -> float:
-    denom = np.linalg.norm(a) * np.linalg.norm(b)
-    if denom == 0:
+    norm_a = np.linalg.norm(a)
+    norm_b = np.linalg.norm(b)
+    if norm_a == 0 and norm_b == 0:
         return 0.0
+    if norm_a == 0 or norm_b == 0:
+        return 1.0
+    denom = norm_a * norm_b
     return float(1.0 - np.dot(a, b) / denom)
 
 
@@ -82,6 +86,8 @@ class SelfSortingMap:
             raise ValueError(
                 "grid_size must be >= 8 (need at least a 4x4 block arrangement)"
             )
+        if data_mode not in {"real", "nominal"}:
+            raise ValueError("data_mode must be either 'real' or 'nominal'")
         self.N = grid_size
         self.delta = distance_fn
         self.data_mode = data_mode
