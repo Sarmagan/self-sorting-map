@@ -325,11 +325,11 @@ if __name__ == "__main__":
         distance_fn=euclidean_distance,
         data_mode="real",
         max_iters=1000,
-        seed=1,
+        seed=44,
     )
 
     # Same shuffle as fit(seed=1): raster for README / before–after figures
-    rng = random.Random(1)
+    rng = random.Random(44)
     shuffled = list(items)
     rng.shuffle(shuffled)
     initial_arr = np.zeros((nx, ny, 3), dtype=np.uint8)

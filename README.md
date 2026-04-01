@@ -42,7 +42,7 @@ This will initialize a 32×32 grid of random colors, organize them so that simil
 
 ### Before / after (RGB demo)
 
-Shuffled grid before SSM (left) and sorted layout after SSM (right). *8× nearest-neighbor upscale so pixels stay visible in the README.* The demo also prints **Distance Preservation Quality (DPQ)** for the sorted grid; in the sample run below it is **≈ 0.9103** (higher is better).
+Shuffled grid before SSM (left) and sorted layout after SSM (right). *8× nearest-neighbor upscale so pixels stay visible in the README.* The demo also prints **Distance Preservation Quality (DPQ)** for the sorted grid; in the sample run below it is **≈ 0.9149** (higher is better).
 
 ![Shuffled grid before SSM (left) and Self-Sorting Map result (right)](ssm_rgb_readme.png)
 
@@ -50,12 +50,12 @@ Shuffled grid before SSM (left) and sorted layout after SSM (right). *8× neares
 
 ```text
 Saved -> ssm_rgb_initial.png
-  block=  8    525.1ms
-  block=  4    958.3ms
-  block=  2    749.1ms
-  block=  1   1928.4ms
-SSM fit completed in 4.161s  (4161.2ms)
-Distance Preservation Quality: 0.9103005543500685
+  block=  8    482.8ms
+  block=  4    940.4ms
+  block=  2    914.6ms
+  block=  1   1898.9ms
+SSM fit completed in 4.237s  (4237.0ms)
+Distance Preservation Quality: 0.9149314189025235
 Saved -> ssm_rgb.png
 Saved -> ssm_rgb_readme.png
 ```
