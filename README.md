@@ -37,13 +37,13 @@ To run the demo:
 python self_sorting_map.py
 ```
 
-This will initialize a 32×32 grid of random colors, organize them so that similar colors cluster together, and write `ssm_rgb_initial.png` (shuffled layout before SSM) and `ssm_rgb.png` (sorted result) in your current directory.
+This will initialize a 32×32 grid of random colors, organize them so that similar colors cluster together, and write `ssm_rgb_initial.png` and `ssm_rgb.png` (raw grids), plus `ssm_rgb_readme.png` (side-by-side, upscaled for documentation) in your current directory.
 
-### Random initial grid
+### Before / after (RGB demo)
 
-Shuffled grid before SSM (`self_sorting_map.py` demo):
+Shuffled grid before SSM (left) and sorted layout after SSM (right). *8× nearest-neighbor upscale so pixels stay visible in the README.*
 
-![Random initial grid](ssm_rgb_initial.png)
+![Shuffled grid before SSM (left) and Self-Sorting Map result (right)](ssm_rgb_readme.png)
 
 ### Sample output (`self_sorting_map.py`)
 
@@ -56,6 +56,7 @@ Saved -> ssm_rgb_initial.png
 SSM fit completed in 4.161s  (4161.2ms)
 Distance Preservation Quality: 0.9103005543500685
 Saved -> ssm_rgb.png
+Saved -> ssm_rgb_readme.png
 ```
 
 ## Usage in Your Projects
