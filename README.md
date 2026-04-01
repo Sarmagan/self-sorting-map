@@ -12,6 +12,7 @@ The SSM is an algorithm designed to organize and present high-dimensional or nom
   - `nominal`: Computes targets using the exact medoid (the item minimizing total dissimilarity within the neighborhood).
 - **Arbitrary Distance Metrics:** Supply any custom distance function (e.g., Euclidean, Cosine) to define item dissimilarity.
 - **Zero Dependencies (Core):** The core algorithm is built entirely on standard Python and NumPy.
+- **DPQ (optional):** With `dpq.py` in the project, the RGB demo reports **Distance Preservation Quality (DPQ)**—agreement between pairwise distances in feature space and distances on the 2D grid (higher is better, max 1).
 
 ## Requirements
 
@@ -41,7 +42,7 @@ This will initialize a 32×32 grid of random colors, organize them so that simil
 
 ### Before / after (RGB demo)
 
-Shuffled grid before SSM (left) and sorted layout after SSM (right). *8× nearest-neighbor upscale so pixels stay visible in the README.*
+Shuffled grid before SSM (left) and sorted layout after SSM (right). *8× nearest-neighbor upscale so pixels stay visible in the README.* The demo also prints **Distance Preservation Quality (DPQ)** for the sorted grid; in the sample run below it is **≈ 0.9103** (higher is better).
 
 ![Shuffled grid before SSM (left) and Self-Sorting Map result (right)](ssm_rgb_readme.png)
 
